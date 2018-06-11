@@ -1,6 +1,5 @@
 FactoryBot.define do
-  factory :todo do
-    activity_id { Faker::Number.number(10) }
+  factory :activity do
     name { Faker::Lorem.word }
     phone { Faker::Number.number(10)}
     address {Faker::Lorem.word }

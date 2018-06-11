@@ -7,8 +7,9 @@ class ActivityController < ApplicationController
     json_response(@activities)
   end
 
+  # POST /todos
   def create
-    @activity = Activity.create!(todo_params)
+    @activity = Activity.create!(activity_params)
     json_response(@activity, :created)
   end
 
@@ -17,15 +18,21 @@ class ActivityController < ApplicationController
     json_response(@activity)
   end
 
+  # PUT /todos/:id
+  def update
+    @activity.update(activity_params)
+    head :no_content
+  end
+
   private
 
   def activity_params
     # whitelist params
-    params.permit(:activity_id, :name)
+    params.permit(:name, :address,:phone,:url,:intro)
   end
 
   def set_activity
-    @activity = Activity.find(pasrams[:activity_id])
+    @activity = Activity.find(params[:id])
   end
 
 end

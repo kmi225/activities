@@ -1,3 +1,3 @@
 class Activity < ApplicationRecord
-    validates_presence_of :name, :activity_id
+    validates_presence_of :name
 end
