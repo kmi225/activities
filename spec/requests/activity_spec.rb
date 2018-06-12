@@ -5,7 +5,7 @@ RSpec.describe 'Activities API', type: :request do
   let!(:activities) { create_list(:activity, 10) }
   let(:id) { "001" }
 
-  # Test suite for GET /todos
+  # Test suite for GET /activity
   describe 'GET /activity' do
     # make HTTP get request before each example
     before { get '/activity' }
@@ -21,7 +21,7 @@ RSpec.describe 'Activities API', type: :request do
     end
   end
 
-  # Test suite for POST /todos
+  # Test suite for POST /activity
   describe 'POST /activity' do
     # valid payload
     let(:valid_attributes) { { name: 'Sigiriya' } }
@@ -81,7 +81,7 @@ RSpec.describe 'Activities API', type: :request do
     end   
   end
 
-  # Test suite for PUT /todos/:id
+  # Test suite for PUT /activity/:id
   describe 'PUT /activity/:id' do
     let(:valid_attributes) { { name: 'Shopping' } }
 
@@ -95,6 +95,15 @@ RSpec.describe 'Activities API', type: :request do
       it 'returns status code 204' do
         expect(response).to have_http_status(204)
       end
+    end
+  end
+
+  # Test suite for DELETE /sctiivity/:id
+  describe 'DELETE /activity/:id' do
+    before { delete "/activity/#{id}" }
+
+    it 'returns status code 204' do
+      expect(response).to have_http_status(204)
     end
   end
 end

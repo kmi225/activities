@@ -24,6 +24,12 @@ class ActivityController < ApplicationController
     head :no_content
   end
 
+  # DELETE /todos/:id
+  def destroy
+    @activity.destroy
+    head :no_content
+  end
+  
   private
 
   def activity_params
