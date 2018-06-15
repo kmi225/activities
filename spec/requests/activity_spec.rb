@@ -3,12 +3,12 @@ require 'rails_helper'
 RSpec.describe 'Activities API', type: :request do
   # initialize test data 
   let!(:activities) { create_list(:activity, 10) }
-  let(:id) { "001" }
+  let(:activity_id) { activities.first.id }
 
-  # Test suite for GET /activity
-  describe 'GET /activity' do
+  # Test suite for GET /activities
+  describe 'GET /activities' do
     # make HTTP get request before each example
-    before { get '/activity' }
+    before { get '/activities' }
 
     it 'returns activities' do
       # Note `json` is a custom helper to parse JSON responses
@@ -21,44 +21,43 @@ RSpec.describe 'Activities API', type: :request do
     end
   end
 
-  # Test suite for POST /activity
-  describe 'POST /activity' do
+  # Test suite for POST /activities
+  describe 'POST /activities' do
     # valid payload
-    let(:valid_attributes) { { name: 'Sigiriya' } }
+    let(:valid_attributes) { { activity: { name: 'Sigiriya' } } }
 
     context 'when the request is valid' do
-      before { post '/activity', params: valid_attributes }
+      before { post '/activities', params: valid_attributes }
 
-      it 'creates a activity' do
-        expect(json['name']).to eq('Sigiriya')
-        #expect(json['activity_id']).to eq('1')
+      it 'creates a activities' do
+        expect(JSON.parse(response.body)).to eq(v) 
       end
 
-      it 'returns status code 201' do
-        expect(response).to have_http_status(201)
+      it 'returns status code 204' do
+        expect(response).to have_http_status(204)
       end
     end
 
     context 'when the request is invalid' do
-      before { post '/activity' }
+      before { post '/activities' }
 
-      it 'returns status code 422' do
-        expect(response).to have_http_status(422)
+      it 'returns status code 400' do
+        expect(response).to have_http_status(400)
       end
 
       it 'returns a validation failure message' do
         expect(response.body)
-          .to match(/Validation failed: Name can't be blank/)
+          .to match(/ActionController::ParameterMissing: param is missing or the value is empty: activity/)
       end
     end
   end
 
-  # Test suite for GET /activity/:id
-  describe 'GET /activity/:id' do
-    before { get "/activity/#{id}" }
+  # Test suite for GET /activities/:id
+  describe 'GET /activities/:id' do
+    before { get "/activities/#{activity_id}" }
 
     context 'when the record exists' do
-      it 'returns the activity' do
+      it 'returns the activities' do
         expect(json).not_to be_empty
         #expect(json['activity_id']).to eq(activity_id)
       end
@@ -69,7 +68,7 @@ RSpec.describe 'Activities API', type: :request do
     end
 
     context 'error' do
-      let(:id) { 100 }
+      let(:activity_id) { 100 }
 
       it 'returns status code 404' do
         expect(response).to have_http_status(404)
@@ -81,26 +80,26 @@ RSpec.describe 'Activities API', type: :request do
     end   
   end
 
-  # Test suite for PUT /activity/:id
-  describe 'PUT /activity/:id' do
-    let(:valid_attributes) { { name: 'Shopping' } }
+  # Test suite for PUT /activities/:id
+  # describe 'PUT /activities/:id' do
+  #   let(:valid_attributes) { { name: 'Shopping' } }
 
-    context 'when the record exists' do
-      before { put "/activity/#{id}", params: valid_attributes }
+  #   context 'when the record exists' do
+  #     before { put "/activities/#{activity_id}", params: valid_attributes }
 
-      it 'updates the record' do
-        expect(response.body).to be_empty
-      end
+  #     it 'updates the record' do
+  #       expect(response.body).to be_empty
+  #     end
 
-      it 'returns status code 204' do
-        expect(response).to have_http_status(204)
-      end
-    end
-  end
+  #     it 'returns status code 204' do
+  #       expect(response).to have_http_status(204)
+  #     end
+  #   end
+  # end
 
-  # Test suite for DELETE /sctiivity/:id
-  describe 'DELETE /activity/:id' do
-    before { delete "/activity/#{id}" }
+  # Test suite for DELETE /activities/:id
+  describe 'DELETE /activities/:id' do
+    before { delete "/activities/#{activity_id}" }
 
     it 'returns status code 204' do
       expect(response).to have_http_status(204)

@@ -1,5 +1,5 @@
 FactoryBot.define do
-    factory :activity do
+    factory :hotel do
       name { Faker::Lorem.sentence }
       address { Faker::Lorem.sentence }
       phone { Faker::Lorem.sentence }

@@ -66,10 +66,6 @@ RSpec.configure do |config|
   #   - http://rspec.info/blog/2014/05/notable-changes-in-rspec-3/#zero-monkey-patching-mode
   config.disable_monkey_patching!
 
-  # This setting enables warnings. It's recommended, but in some cases may
-  # be too noisy due to issues in dependencies.
-  config.warnings = true
-
   # Many RSpec users commonly either run the entire suite or an individual
   # file, and it's useful to allow more verbose output when running an
   # individual spec file.
@@ -84,8 +80,6 @@ RSpec.configure do |config|
   # end of the spec run, to help surface which specs are running
   # particularly slow.
   config.profile_examples = 10
-
-  
 
   # Run specs in random order to surface order dependencies. If you find an
   # order dependency and want to debug it, you can fix the order by providing
